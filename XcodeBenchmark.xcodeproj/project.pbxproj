@@ -149,10 +149,13 @@
 			buildPhases = (
 				6105FDE963387D0DD512901B /* [CP] Check Pods Manifest.lock */,
 				B5C5A7EF24EC2989002C0C62 /* Headers */,
+				55AB3F32E5808E4E4CEE8351 /* [RC] RemoteCache_prebuild */,
 				B5C5A7F024EC2989002C0C62 /* Sources */,
 				B5C5A7F124EC2989002C0C62 /* Frameworks */,
 				B5C5A7F224EC2989002C0C62 /* Resources */,
 				2519997CC64B010A6E3E62A1 /* [CP] Copy Pods Resources */,
+				F3700A837C2D8E9A05D2E183 /* [RC] RemoteCache_postbuild */,
+				334DC2AD1ACDA9E72C1AC4C3 /* [RC] RemoteCache_mark */,
 			);
 			buildRules = (
 			);
@@ -215,14 +218,50 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-XcodeBenchmark/Pods-XcodeBenchmark-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-XcodeBenchmark/Pods-XcodeBenchmark-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XcodeBenchmark/Pods-XcodeBenchmark-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		334DC2AD1ACDA9E72C1AC4C3 /* [RC] RemoteCache_mark */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				/Users/i.tsaryov/Projects/Swift/XcodeBenchmark/xcprepare,
+			);
+			name = "[RC] RemoteCache_mark";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SCRIPT_INPUT_FILE_0\" mark --configuration \"$CONFIGURATION\" --platform \"$PLATFORM_NAME\"";
+		};
+		55AB3F32E5808E4E4CEE8351 /* [RC] RemoteCache_prebuild */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			dependencyFile = "$(TARGET_TEMP_DIR)/prebuild.d";
+			files = (
+			);
+			inputPaths = (
+				/Users/i.tsaryov/Projects/Swift/XcodeBenchmark/xcprebuild,
+			);
+			name = "[RC] RemoteCache_prebuild";
+			outputPaths = (
+				"$(TARGET_TEMP_DIR)/rc.enabled",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SCRIPT_INPUT_FILE_0\"";
 		};
 		6105FDE963387D0DD512901B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -245,6 +284,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F3700A837C2D8E9A05D2E183 /* [RC] RemoteCache_postbuild */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			dependencyFile = "$(TARGET_TEMP_DIR)/postbuild.d";
+			files = (
+			);
+			inputPaths = (
+				/Users/i.tsaryov/Projects/Swift/XcodeBenchmark/xcpostbuild,
+			);
+			name = "[RC] RemoteCache_postbuild";
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(MODULES_FOLDER_PATH)/$(PRODUCT_MODULE_NAME).swiftmodule/$(XCRC_PLATFORM_PREFERRED_ARCH).swiftmodule.md5",
+				"$(TARGET_BUILD_DIR)/$(MODULES_FOLDER_PATH)/$(PRODUCT_MODULE_NAME).swiftmodule/$(XCRC_PLATFORM_PREFERRED_ARCH)-$(LLVM_TARGET_TRIPLE_VENDOR)-$(SWIFT_PLATFORM_TARGET_PREFIX)$(LLVM_TARGET_TRIPLE_SUFFIX).swiftmodule.md5",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SCRIPT_INPUT_FILE_0\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -416,13 +473,18 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_CFLAGS = "$(inherited) -fdebug-prefix-map=/Users/i.tsaryov/Projects/Swift/XcodeBenchmark=$(XCRC_FAKE_SRCROOT)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -debug-prefix-map /Users/i.tsaryov/Projects/Swift/XcodeBenchmark=$(XCRC_FAKE_SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxim.eremenko.XcodeBenchmark;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EXEC = /Users/i.tsaryov/Projects/Swift/XcodeBenchmark/xcswiftc;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				XCRC_FAKE_SRCROOT = /xxxxxxxxxx;
+				XCRC_PLATFORM_PREFERRED_ARCH = "$(LINK_FILE_LIST_$(CURRENT_VARIANT)_$(PLATFORM_PREFERRED_ARCH):dir:standardizepath:file:default=arm64)";
 			};
 			name = Debug;
 		};
